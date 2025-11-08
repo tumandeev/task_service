@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Factories\Response\ApiResponseFactory;
+use App\Factories\Response\DefaultApiResponseFactory;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        app()->singleton(ApiResponseFactory::class, DefaultApiResponseFactory::class);
     }
 
     /**
