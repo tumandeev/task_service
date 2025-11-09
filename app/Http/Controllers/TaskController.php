@@ -7,9 +7,9 @@ use App\Domain\Task\DTO\TaskData;
 use App\Domain\Task\DTO\TaskFilterData;
 use App\Domain\Task\DTO\TaskUpdateData;
 use App\Domain\Task\Service\TaskServiceInterface;
+use Illuminate\Support\Collection;
 use App\Http\Requests\{Task\TaskCreateRequest,
     Task\TaskDeleteRequest,
-    Task\TaskGetRequest,
     Task\TaskListRequest,
     Task\TaskUpdateRequest};
 use App\Models\Task;
@@ -34,15 +34,15 @@ class TaskController extends Controller
         return  $this->taskService->update($taskId, $data);
     }
 
-    public function list(TaskListRequest $request)
+    public function search(TaskListRequest $request): Collection
     {
         $filterData = TaskFilterData::from($request->getData());
         return  $this->taskService->search($filterData);
     }
 
-    public function show(TaskGetRequest $request)
+    public function find(int $taskId): TaskData
     {
-
+        return  $this->taskService->find($taskId);
     }
 
 
