@@ -1,4 +1,4 @@
-version: '3'
+
 networks:
     task_tracker:
 
@@ -16,13 +16,13 @@ services:
         - traefik.http.services.app-admin.loadbalancer.server.port=8000
     depends_on:
       - php
-      - mysql-task_tracker
+      - mysql
     networks:
       - task_tracker
     extra_hosts:
         - "host.docker.internal:host-gateway"
 
-  mysql-task_tracker:
+  mysql:
     image: mariadb:10.6.16
     restart: unless-stopped
     tty: true
@@ -80,7 +80,7 @@ services:
     volumes:
       - ./:/var/www/html
     depends_on:
-      - mysql-task_tracker
+      - mysql
     working_dir: /var/www/html
     entrypoint: ['php', '/var/www/html/artisan']
     networks:

@@ -1,6 +1,6 @@
 <?php
 
-use App\DTO\ApiErrorResponse;
+use App\DTO\Response\ApiErrorResponse;
 use App\Http\Middleware\ApiResponseInterceptor;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (AuthenticationException $e) {
-            return (new ApiErrorResponse('Не авторизован', 401, code: 'UNAUTHORIZED'))->toResponse();
+            return (new ApiErrorResponse('Not authorized', 401))->toResponse();
         });
 
         $exceptions->render(function (ValidationException $e) {

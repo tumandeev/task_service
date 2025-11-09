@@ -1,7 +1,7 @@
 <?php
-namespace App\DTO;
+namespace App\DTO\Response;
 
-use App\DTO\Contracts\ApiResponse;
+use App\DTO\Response\Contracts\ApiResponse;
 use Illuminate\Http\JsonResponse;
 
 class ApiSuccessResponse implements ApiResponse

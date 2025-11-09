@@ -3,8 +3,8 @@
 namespace App\Factories\Response;
 
 
-use App\DTO\ApiErrorResponse;
-use App\DTO\ApiSuccessResponse;
+use App\DTO\Response\ApiErrorResponse;
+use App\DTO\Response\ApiSuccessResponse;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 

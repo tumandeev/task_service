@@ -1,10 +1,9 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Response;
 
-use App\DTO\Contracts\ApiResponse;
+use App\DTO\Response\Contracts\ApiResponse;
 use Illuminate\Http\JsonResponse;
-use JsonSerializable;
 use Throwable;
 
 class ApiErrorResponse implements ApiResponse

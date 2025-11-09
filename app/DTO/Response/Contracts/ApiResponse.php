@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\Contracts;
+namespace App\DTO\Response\Contracts;
 
 use Illuminate\Http\JsonResponse;
 
