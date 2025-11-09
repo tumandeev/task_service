@@ -2,24 +2,16 @@
 
 namespace App\Http\Requests\Task;
 
-use App\Domain\Task\DTO\Request\TaskCreateRequestData;
 use Illuminate\Foundation\Http\FormRequest;
-use Spatie\LaravelData\WithData;
 
-class TaskDeleteRequest extends FormRequest
+class TaskIdRequest extends FormRequest
 {
-    use WithData;
-
-    public function dataClass(): string
-    {
-        return TaskCreateRequestData::class;
-    }
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,12 +22,19 @@ class TaskDeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => ['required', 'integer', 'exists:tasks,id'],
         ];
     }
 
-    public function getDto()
+    public function messages(): array
     {
-        // TODO: Implement getDto() method.
+        return [
+            'id.exists' => 'id not found',
+        ];
+    }
+
+    public function validationData(): array
+    {
+        return array_merge($this->all(), $this->route()->parameters());
     }
 }

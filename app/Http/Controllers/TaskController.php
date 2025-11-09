@@ -8,11 +8,7 @@ use App\Domain\Task\DTO\TaskFilterData;
 use App\Domain\Task\DTO\TaskUpdateData;
 use App\Domain\Task\Service\TaskServiceInterface;
 use Illuminate\Support\Collection;
-use App\Http\Requests\{Task\TaskCreateRequest,
-    Task\TaskDeleteRequest,
-    Task\TaskListRequest,
-    Task\TaskUpdateRequest};
-use App\Models\Task;
+use App\Http\Requests\{Task\TaskCreateRequest, Task\TaskIdRequest, Task\TaskListRequest, Task\TaskUpdateRequest};
 
 class TaskController extends Controller
 {
@@ -46,8 +42,8 @@ class TaskController extends Controller
     }
 
 
-    public function delete(TaskDeleteRequest $request)
+    public function delete(TaskIdRequest $request, int $taskId): TaskData
     {
-
+        return  $this->taskService->delete($taskId);
     }
 }

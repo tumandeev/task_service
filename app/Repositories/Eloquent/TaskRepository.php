@@ -48,9 +48,11 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
         return $result;
     }
 
-    public function delete(int $id): bool
+    public function delete(int $id): TaskData
     {
-        return parent::doDelete($id);
+        /** @var TaskData $result */
+        $result = parent::doDelete($id);
+        return $result;
     }
 
     public function search(TaskFilterData $filter): Collection

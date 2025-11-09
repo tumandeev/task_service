@@ -70,10 +70,12 @@ abstract class BaseRepository
         return $this->dataClass::from($model);
     }
 
-    public function doDelete(int $id): bool
+    public function doDelete(int $id): Data
     {
         $model = $this->model->findOrFail($id);
-        return $model->delete();
+        $model->delete();
+
+        return $this->dataClass::from($model);
     }
 
     public function doSearch(Data $filter): Collection

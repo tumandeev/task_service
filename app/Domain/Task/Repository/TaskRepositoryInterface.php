@@ -13,6 +13,6 @@ interface TaskRepositoryInterface
     public function find(int $id): ?TaskData;
     public function create(TaskCreateData $data): TaskData;
     public function update(int $id, TaskUpdateData $data): TaskData;
-    public function delete(int $id): bool;
+    public function delete(int $id): TaskData;
     public function search(TaskFilterData $filter): Collection;
 }
