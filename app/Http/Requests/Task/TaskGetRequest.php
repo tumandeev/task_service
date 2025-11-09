@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\Task;
 
-use App\Http\Requests\RequestInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskGetRequest extends FormRequest implements RequestInterface
+class TaskGetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

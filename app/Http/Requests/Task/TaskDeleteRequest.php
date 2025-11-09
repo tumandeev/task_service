@@ -2,11 +2,18 @@
 
 namespace App\Http\Requests\Task;
 
-use App\Http\Requests\RequestInterface;
+use App\Domain\Task\DTO\Request\TaskCreateRequestData;
 use Illuminate\Foundation\Http\FormRequest;
+use Spatie\LaravelData\WithData;
 
-class TaskDeleteRequest extends FormRequest implements RequestInterface
+class TaskDeleteRequest extends FormRequest
 {
+    use WithData;
+
+    public function dataClass(): string
+    {
+        return TaskCreateRequestData::class;
+    }
     /**
      * Determine if the user is authorized to make this request.
      */

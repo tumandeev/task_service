@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Domain\Task\DTO\TaskCreateData;
 use App\Domain\Task\DTO\TaskData;
+use App\Domain\Task\DTO\TaskFilterData;
 use App\Domain\Task\DTO\TaskUpdateData;
 use App\Domain\Task\Service\TaskServiceInterface;
 use App\Http\Requests\{Task\TaskCreateRequest,
@@ -35,7 +36,8 @@ class TaskController extends Controller
 
     public function list(TaskListRequest $request)
     {
-        dd($request->getDto());
+        $filterData = TaskFilterData::from($request->getData());
+        return  $this->taskService->search($filterData);
     }
 
     public function show(TaskGetRequest $request)

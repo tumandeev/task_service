@@ -2,10 +2,12 @@
 
 namespace App\Domain\Task\Service;
 
+use App\Domain\Task\DTO\TaskFilterData;
 use App\Domain\Task\DTO\TaskUpdateData;
 use App\Domain\Task\DTO\TaskCreateData;
 use App\Domain\Task\DTO\TaskData;
 use App\Domain\Task\Repository\TaskRepositoryInterface;
+use Illuminate\Support\Collection;
 
 class TaskService implements TaskServiceInterface
 {
@@ -31,5 +33,10 @@ class TaskService implements TaskServiceInterface
     public function delete(int $id): bool
     {
         return $this->taskRepository->delete($id);
+    }
+
+    public function search(TaskFilterData $filter): Collection
+    {
+        return $this->taskRepository->search($filter);
     }
 }

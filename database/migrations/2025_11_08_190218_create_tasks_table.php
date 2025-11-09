@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('project');
             $table->foreignId('executor')->constrained('users');
             $table->string('status');
-            $table->text('description');
-            $table->date('due_date')->nullable();
+            $table->text('description')->default('');
+            $table->dateTimeTz('due_date')->nullable();
             $table->string('attachment')->nullable();
             $table->timestamps();
         });

@@ -20,25 +20,20 @@ abstract class BaseRepository
 
     public function __construct(
         protected Model $model,
-    ) {}
-
-
-    public function all(): Collection
+    )
     {
-//        return $this->mapAll();
     }
 
     public function doFindOrFail(int $id): ?Data
     {
-       return  $this->dataClass::from(
-             $this->model->findOrFail($id)
-         );
+        return $this->dataClass::from(
+            $this->model->findOrFail($id)
+        );
     }
 
     public function doCreate(Data $data): Data
     {
-
-        if (! $data instanceof $this->createDataClass) {
+        if (!$data instanceof $this->createDataClass) {
             throw new \InvalidArgumentException(
                 sprintf('Expected %s, got %s', $this->createDataClass, $data::class)
             );
@@ -57,7 +52,7 @@ abstract class BaseRepository
 
     public function doUpdate(int $id, Data $data): Data
     {
-        if (! $data instanceof $this->updateDataClass) {
+        if (!$data instanceof $this->updateDataClass) {
             throw new \InvalidArgumentException(
                 sprintf('Expected %s, got %s', $this->updateDataClass, $data::class)
             );
@@ -79,5 +74,19 @@ abstract class BaseRepository
     {
         $model = $this->model->findOrFail($id);
         return $model->delete();
+    }
+
+    public function doSearch(Data $filter): Collection
+    {
+        $query = $this->model::query();
+
+        $filter = $filter->toArray();
+        /** @var array $filter */
+        static::arrayKeysToSnake($filter);
+        $filter = array_filter($filter, fn($v) => !is_null($v));
+        $query->where($filter);
+        $models = $query->get();
+
+        return $models->map(fn($model) => $this->dataClass::from($model));
     }
 }

@@ -2,12 +2,21 @@
 
 namespace App\Http\Requests\Task;
 
-use App\Domain\Task\DTO\Request\TaskListRequestDto;
-use App\Http\Requests\RequestInterface;
+use App\Domain\Task\DTO\Request\TaskFilterRequestData;
+use App\Domain\Task\Enum\StatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Spatie\LaravelData\WithData;
 
-class TaskListRequest extends FormRequest implements RequestInterface
+class TaskListRequest extends FormRequest
 {
+    use WithData;
+
+    public function dataClass(): string
+    {
+        return TaskFilterRequestData::class;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,7 +33,10 @@ class TaskListRequest extends FormRequest implements RequestInterface
     public function rules(): array
     {
         return [
-            'project' => ['required', 'string'],
+            'project' => ['required', 'string', 'exists:tasks,project'],
+            'dueDate' => ['date_format:Y-m-d H:i:s'],
+            'executor' => ['integer', 'exists:users,id'],
+            'status' => [Rule::enum(StatusEnum::class)],
         ];
     }
 
@@ -33,10 +45,11 @@ class TaskListRequest extends FormRequest implements RequestInterface
         return array_merge($this->all(), $this->route()->parameters());
     }
 
-    public function getDto(): TaskListRequestDto
+    public function getData(): TaskFilterRequestData
     {
-        $dto = new TaskListRequestDto();
-        $dto->project = $this->route()->parameter('project');
-        return $dto;
+        return TaskFilterRequestData::from([
+            ...$this->all(),
+            'project' => $this->route()->parameter('project'),
+        ]);
     }
 }

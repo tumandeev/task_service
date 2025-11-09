@@ -4,11 +4,13 @@ namespace App\Repositories\Eloquent;
 
 
 
+use App\Domain\Task\DTO\TaskFilterData;
 use App\Domain\Task\DTO\TaskUpdateData;
 use App\Domain\Task\DTO\TaskCreateData;
 use App\Domain\Task\DTO\TaskData;
 use App\Domain\Task\Repository\TaskRepositoryInterface;
 use App\Models\Task;
+use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 
 /** @extends BaseRepository<TaskCreateData, TaskData> */
@@ -50,4 +52,10 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     {
         return parent::doDelete($id);
     }
+
+    public function search(TaskFilterData $filter): Collection
+    {
+        return parent::doSearch($filter);
+    }
+
 }
