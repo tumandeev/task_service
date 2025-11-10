@@ -98,6 +98,15 @@ services:
     networks:
       - task_tracker
 
+  mailhog:
+    image: mailhog/mailhog
+    restart: "no"
+    ports:
+      - "1025:1025"
+      - "8021:8025"
+    networks:
+      - task_tracker
+
 #Volumes
 volumes:
   dbdata:

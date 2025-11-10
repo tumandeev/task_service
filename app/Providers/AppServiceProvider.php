@@ -8,6 +8,8 @@ use App\Domain\Task\Service\TaskServiceInterface;
 use App\Factories\Response\ApiResponseFactory;
 use App\Factories\Response\DefaultApiResponseFactory;
 use App\Repositories\Eloquent\TaskRepository;
+use App\Services\Notification\EloquentUserNotificationService;
+use App\Services\Notification\NotificationServiceInterface;
 use Illuminate\Support\ServiceProvider;
 use Spatie\LaravelData\Data;
 use Illuminate\Support\Str;
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Services
         $this->app->bind(TaskServiceInterface::class, TaskService::class);
+        $this->app->bind(NotificationServiceInterface::class, EloquentUserNotificationService::class);
     }
 
     /**

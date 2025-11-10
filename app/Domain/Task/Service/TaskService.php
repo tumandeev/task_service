@@ -7,6 +7,7 @@ use App\Domain\Task\DTO\TaskUpdateData;
 use App\Domain\Task\DTO\TaskCreateData;
 use App\Domain\Task\DTO\TaskData;
 use App\Domain\Task\Repository\TaskRepositoryInterface;
+use App\Events\TaskCreated;
 use Illuminate\Support\Collection;
 
 class TaskService implements TaskServiceInterface
@@ -22,7 +23,9 @@ class TaskService implements TaskServiceInterface
 
     public function create(TaskCreateData $data): TaskData
     {
-        return $this->taskRepository->create($data);
+        $task = $this->taskRepository->create($data);
+        event(new TaskCreated($task));
+        return $task;
     }
 
     public function update(int $id, TaskUpdateData $data): TaskData
