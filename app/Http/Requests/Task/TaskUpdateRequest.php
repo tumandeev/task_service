@@ -4,7 +4,6 @@ namespace App\Http\Requests\Task;
 
 use App\Domain\Task\DTO\Request\TaskUpdateRequestData;
 use App\Domain\Task\Enum\StatusEnum;
-use DateTimeInterface;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Spatie\LaravelData\WithData;
@@ -34,7 +33,7 @@ class TaskUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'taskId' => ['required', 'integer', 'exists:tasks,id'],
+            'id' => ['required', 'integer', 'exists:tasks,id'],
             'title' => ['required', 'string:255'],
             'description' => ['required', 'string'],
             'dueDate' => ['date_format:Y-m-d H:i:s'],

@@ -73,6 +73,12 @@ abstract class BaseRepository
         $model->fill($data);
         $model->save();
 
+        if (!empty($this->fileFields) && array_intersect(array_keys($data), $this->fileFields)) {
+            $this->handleAttachments($model,$this->fileFields, $data);
+        }elseif (!empty($this->fileFields)){
+            $this->prepareFiles($model,$this->fileFields);
+        }
+
         return $this->dataClass::from($model);
     }
 
