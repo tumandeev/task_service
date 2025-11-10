@@ -15,6 +15,7 @@ readonly class ApiResponseInterceptor
 
     public function handle(Request $request, Closure $next): JsonResponse
     {
+//        dd($request);
         $response = $next($request);
         return $this->factory->makeFrom($response);
     }

@@ -4,10 +4,13 @@ namespace App\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Task extends Model
+class Task extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     protected $fillable = [
         'title',
         'description',
@@ -15,7 +18,6 @@ class Task extends Model
         'executor',
         'status',
         'due_date',
-        'attachment',
     ];
 
 

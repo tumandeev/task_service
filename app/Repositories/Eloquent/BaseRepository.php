@@ -4,19 +4,22 @@ namespace App\Repositories\Eloquent;
 
 
 use App\Support\Traits\DataMap;
+use App\Support\Traits\HandlesAttachments;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 
 abstract class BaseRepository
 {
-    use RepositoryTrait, DataMap;
+    use RepositoryTrait, DataMap, HandlesAttachments;
 
     protected string|Data $createDataClass;
 
     protected string|Data $updateDataClass;
 
     protected string|Data $dataClass;
+
+    protected array $fileFields = [];
 
     public function __construct(
         protected Model $model,
@@ -40,12 +43,15 @@ abstract class BaseRepository
         }
 
         $model = $this->model->newInstance();
-
         $data = $data->toArray();
-
         static::arrayKeysToSnake($data);
+
         $model->fill($data);
         $model->save();
+
+        if (!empty($this->fileFields) && array_intersect(array_keys($data), $this->fileFields)) {
+            $this->handleAttachments($model,$this->fileFields, $data);
+        }
 
         return $this->dataClass::from($model);
     }

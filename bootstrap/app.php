@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('api', ApiResponseInterceptor::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+
         $exceptions->render(function (AuthenticationException $e) {
             return (new ApiErrorResponse('Not authorized', 401))->toResponse();
         });

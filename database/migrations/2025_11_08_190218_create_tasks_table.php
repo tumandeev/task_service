@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('status');
             $table->text('description')->default('');
             $table->dateTimeTz('due_date')->nullable();
-            $table->string('attachment')->nullable();
             $table->timestamps();
         });
     }

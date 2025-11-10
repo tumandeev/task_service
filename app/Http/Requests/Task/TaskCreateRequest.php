@@ -38,7 +38,7 @@ class TaskCreateRequest extends FormRequest
             'title' => ['required', 'string:255'],
             'description' => ['required', 'string'],
             'dueDate' => ['date_format:Y-m-d H:i:s'],
-            'executor' => ['integer', 'exists:users,id'],
+            'executor' => ['required', 'integer', 'exists:users,id'],
             'status' => ['required', Rule::enum(StatusEnum::class)],
         ];
     }

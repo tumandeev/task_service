@@ -18,10 +18,14 @@ class TaskController extends Controller
     )
     {}
 
-    public function create(TaskCreateRequest $request): TaskData
+    public function create(TaskCreateRequest $request)
     {
+//        dd($request);
         $data = TaskCreateData::from($request->getData());
-        return  $this->taskService->create($data);
+        $test = $this->taskService->create($data);
+//        dd($test);
+//        dd('asd1111');
+        return  $test;
     }
 
     public function update(TaskUpdateRequest $request, int $taskId): TaskData

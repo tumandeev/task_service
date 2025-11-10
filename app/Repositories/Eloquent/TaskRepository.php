@@ -19,6 +19,8 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
     protected string|Data $createDataClass = TaskCreateData::class;
     protected string|Data $updateDataClass = TaskUpdateData::class;
     protected string|Data $dataClass = TaskData::class;
+
+    protected array $fileFields = ['attachments'];
     public function __construct(
         Task $model,
     )

@@ -19,7 +19,7 @@ class TaskCreateData extends Data
         #[WithCast(EnumCast::class, StatusEnum::class)]
         public StatusEnum $status,
         public int $executor,
-        public ?string $attachment,
+        public ?array $attachments,
         #[WithCast(DateTimeInterfaceCast::class, format: 'Y-m-d H:i:s')]
         public ?Carbon $dueDate,
     ) {}
